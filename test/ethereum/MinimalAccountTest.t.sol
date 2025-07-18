@@ -145,11 +145,11 @@ contract MinimalAccountTest is Test {
         );
         bytes32 userOperationHash = IEntryPoint(helperConfig.getConfig().entryPoint).getUserOpHash(packedUserOp);
         uint256 missingAccountFunds = 1e18;
-        
+
         // Use a valid signature format but wrong content (change one byte)
         bytes memory validSig = packedUserOp.signature;
         bytes memory corruptedSig = new bytes(validSig.length);
-        for (uint i = 0; i < validSig.length; i++) {
+        for (uint256 i = 0; i < validSig.length; i++) {
             corruptedSig[i] = validSig[i];
         }
         // Corrupt just one byte to make signature invalid but still proper length
@@ -198,7 +198,7 @@ contract MinimalAccountTest is Test {
         address dest = randomUser;
         uint256 value = 0.5e18;
         bytes memory functionData = "";
-        
+
         // Fund the account
         vm.deal(address(minimalAccount), 1e18);
         uint256 initialBalance = randomUser.balance;
@@ -214,7 +214,7 @@ contract MinimalAccountTest is Test {
     /*//////////////////////////////////////////////////////////////
                                 HELPERS
     //////////////////////////////////////////////////////////////*/
-    
+
     function testGetEntryPoint() public {
         // Act & Assert
         assertEq(minimalAccount.getEntryPoint(), helperConfig.getConfig().entryPoint);

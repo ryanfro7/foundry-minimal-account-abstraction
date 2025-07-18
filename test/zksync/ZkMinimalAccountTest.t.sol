@@ -2,8 +2,7 @@
 
 pragma solidity ^0.8.24;
 
-
-    /*//////////////////////////////////////////////////////////////
+/*//////////////////////////////////////////////////////////////
                                ERA IMPORTS
     //////////////////////////////////////////////////////////////*/
 import {Test} from "forge-std/Test.sol";
@@ -12,11 +11,12 @@ import {ERC20Mock} from "@openzeppelin/contracts/mocks/token/ERC20Mock.sol";
 import {
     Transaction,
     MemoryTransactionHelper
-    } from "lib/foundry-era-contracts/src/system-contracts/contracts/libraries/MemoryTransactionHelper.sol";
+} from "lib/foundry-era-contracts/src/system-contracts/contracts/libraries/MemoryTransactionHelper.sol";
 import {BOOTLOADER_FORMAL_ADDRESS} from "lib/foundry-era-contracts/src/system-contracts/contracts/Constants.sol";
-import {ACCOUNT_VALIDATION_SUCCESS_MAGIC} from "lib/foundry-era-contracts/src/system-contracts/contracts/interfaces/IAccount.sol";
+import {ACCOUNT_VALIDATION_SUCCESS_MAGIC} from
+    "lib/foundry-era-contracts/src/system-contracts/contracts/interfaces/IAccount.sol";
 
-    /*//////////////////////////////////////////////////////////////
+/*//////////////////////////////////////////////////////////////
                                OZ IMPORTS
     //////////////////////////////////////////////////////////////*/
 import {MessageHashUtils} from "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
@@ -44,7 +44,8 @@ contract ZkMinimalAccountTest is Test {
         uint256 value = 0;
         bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);
 
-        Transaction memory transaction = _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
+        Transaction memory transaction =
+            _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
 
         // Act
         vm.prank(minimalAccount.owner());
@@ -58,9 +59,10 @@ contract ZkMinimalAccountTest is Test {
         // Arrange
         address dest = address(usdc);
         uint256 value = 0;
-        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);        
+        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);
 
-        Transaction memory transaction = _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
+        Transaction memory transaction =
+            _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
         transaction = _signTransaction(transaction);
 
         // Act
@@ -68,16 +70,17 @@ contract ZkMinimalAccountTest is Test {
         bytes4 magic = minimalAccount.validateTransaction(EMPTY_BYTES32, EMPTY_BYTES32, transaction);
 
         //Assert
-        assertEq(magic, ACCOUNT_VALIDATION_SUCCESS_MAGIC); 
+        assertEq(magic, ACCOUNT_VALIDATION_SUCCESS_MAGIC);
     }
 
     function testZkExecuteTransactionFromOutside() public {
         // Arrange
         address dest = address(usdc);
         uint256 value = 0;
-        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);        
+        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);
 
-        Transaction memory transaction = _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
+        Transaction memory transaction =
+            _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
         transaction = _signTransaction(transaction);
 
         // Act
@@ -91,9 +94,10 @@ contract ZkMinimalAccountTest is Test {
         // Arrange
         address dest = address(usdc);
         uint256 value = 0;
-        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);        
+        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);
 
-        Transaction memory transaction = _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
+        Transaction memory transaction =
+            _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
         // Sign with wrong private key (different from owner)
         uint256 wrongPrivateKey = 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff81; // Different key
         transaction = _signTransactionWithKey(transaction, wrongPrivateKey);
@@ -107,9 +111,10 @@ contract ZkMinimalAccountTest is Test {
         // Arrange
         address dest = address(usdc);
         uint256 value = 0;
-        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);        
+        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);
 
-        Transaction memory transaction = _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
+        Transaction memory transaction =
+            _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
         transaction = _signTransaction(transaction);
 
         // Remove all ETH from the account to trigger insufficient balance
@@ -124,9 +129,10 @@ contract ZkMinimalAccountTest is Test {
         // Arrange
         address dest = address(usdc);
         uint256 value = 0;
-        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);        
+        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);
 
-        Transaction memory transaction = _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
+        Transaction memory transaction =
+            _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
         transaction = _signTransaction(transaction);
 
         // Act & Assert - Try to call validateTransaction from non-bootloader address
@@ -138,9 +144,10 @@ contract ZkMinimalAccountTest is Test {
         // Arrange
         address dest = address(usdc);
         uint256 value = 0;
-        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);        
+        bytes memory functionData = abi.encodeWithSelector(ERC20Mock.mint.selector, address(minimalAccount), AMOUNT);
 
-        Transaction memory transaction = _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
+        Transaction memory transaction =
+            _createUnsignedTransaction(minimalAccount.owner(), 113, dest, value, functionData);
         address randomUser = makeAddr("randomUser");
 
         // Act & Assert - Try to call executeTransaction from non-bootloader and non-owner address
@@ -164,7 +171,11 @@ contract ZkMinimalAccountTest is Test {
         return signedTransaction;
     }
 
-    function _signTransactionWithKey(Transaction memory transaction, uint256 privateKey) internal view returns (Transaction memory) {
+    function _signTransactionWithKey(Transaction memory transaction, uint256 privateKey)
+        internal
+        view
+        returns (Transaction memory)
+    {
         bytes32 unsignedTransactionHash = MemoryTransactionHelper.encodeHash(transaction);
         uint8 v;
         bytes32 r;
@@ -175,8 +186,13 @@ contract ZkMinimalAccountTest is Test {
         return signedTransaction;
     }
 
-
-    function _createUnsignedTransaction(address from, uint8 transactionType, address to, uint256 value, bytes memory data) internal view returns(Transaction memory) {
+    function _createUnsignedTransaction(
+        address from,
+        uint8 transactionType,
+        address to,
+        uint256 value,
+        bytes memory data
+    ) internal view returns (Transaction memory) {
         uint256 nonce = vm.getNonce(address(minimalAccount));
         bytes32[] memory factoryDeps = new bytes32[](0);
         return Transaction({
