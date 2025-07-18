@@ -1,0 +1,27 @@
+{
+  "name": "javascript-scripts",
+  "version": "1.0.0",
+  "description": "TypeScript scripts for zkSync AA transactions",
+  "main": "index.js",
+  "scripts": {
+    "sendTx": "npx ts-node SendAATx.ts",
+    "deploy": "npx ts-node DeployZkMinimal.ts",
+    "encryptKey": "npx ts-node EncryptKey.ts",
+    "compile": "npx tsc --noEmit --skipLibCheck *.ts"
+  },
+  "dependencies": {
+    "ethers": "^6.7.0",
+    "zksync-ethers": "^6.0.0",
+    "dotenv": "^16.0.3",
+    "fs-extra": "^11.1.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  },
+  "keywords": ["zksync", "account-abstraction", "typescript"],
+  "author": "Cyfrin",
+  "license": "MIT"
+}

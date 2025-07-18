@@ -1,0 +1,26 @@
+{
+  "name": "minimal-account-abstraction",
+  "version": "1.0.0", 
+  "description": "Minimal implementation of Account Abstraction for Ethereum and ZkSync Era",
+  "main": "index.js",
+  "scripts": {
+    "sendTx": "cd javascript-scripts && npm run sendTx",
+    "deploy": "cd javascript-scripts && npm run deploy",
+    "encryptKey": "cd javascript-scripts && npm run encryptKey"
+  },
+  "dependencies": {
+    "ethers": "^6.7.0",
+    "zksync-ethers": "^6.0.0",
+    "dotenv": "^16.0.3",
+    "fs-extra": "^11.1.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  },
+  "keywords": ["account-abstraction", "zksync", "ethereum", "erc-4337"],
+  "author": "Cyfrin",
+  "license": "MIT"
+}
